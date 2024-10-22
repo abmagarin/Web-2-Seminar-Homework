@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 $servername = "localhost"; // Change if necessary
 $username = "root";         // Your MySQL username
 $password = "";             // Your MySQL password
-$dbname = "laravel";        // Name of your database
+$dbname = "Laptop";        // Name of your database
 
 // Create the connection
 $conn = new mysqli($servername, $username, $password, $dbname);
