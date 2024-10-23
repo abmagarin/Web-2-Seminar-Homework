@@ -49,6 +49,17 @@ CREATE TABLE IF NOT EXISTS processor (
     manufacturer VARCHAR(50) NOT NULL,
     type VARCHAR(50) NOT NULL
 );
+
+//I added for table
+
+CREATE TABLE menu_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    parent_id INT DEFAULT NULL,
+    FOREIGN KEY (parent_id) REFERENCES menu_items(id) ON DELETE CASCADE
+);
+
+
 ";
 
 // Execute the query and check for errors
