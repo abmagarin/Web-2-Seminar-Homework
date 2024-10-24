@@ -2,6 +2,8 @@
 $servername = "localhost";
 $username = "root";
 $password = ""; // Cambia si tienes una contraseña
+
+//$dbname = "Laptop";
 $dbname = "laravel"; // Nombre de tu base de datos
 
 // Crear la conexión

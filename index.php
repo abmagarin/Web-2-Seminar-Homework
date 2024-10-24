@@ -2,18 +2,23 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+include 'multi_level_menu.php'; // Include the multi-level menu
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Aplicación de Alquiler de Bicicletas</title>
+    //SPANISH Here need to add English and Hungarian soon----------
+    <title>Aplicación de Alquiler de Bicicletas && Welcome to Laptop Info</title>
     <link rel="stylesheet" href="css/styles.css"> <!-- Si decides agregar estilos -->
+   //bootstrap additinal styles
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
 <?php
+
 include 'includes/db_connection.php'; // Incluir el archivo de conexión
 
 // Insertar datos si se envía el formulario

@@ -1,5 +1,5 @@
 <?php
-// Database connection
+// Database connection maybe we dont need it as includes has it
 $servername = "localhost";
 $username = "root";
 $password = "";
