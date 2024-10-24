@@ -6,31 +6,31 @@ include 'multi_level_menu.php'; // Include the multi-level menu
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    //SPANISH Here need to add English and Hungarian soon----------
-    <title>Aplicación de Alquiler de Bicicletas && Welcome to Laptop Info</title>
-    <link rel="stylesheet" href="css/styles.css"> <!-- Si decides agregar estilos -->
-   //bootstrap additinal styles
+    //ENGLISH Here need to add Hungarian soon----------
+    <title>Bicycle Rental Application && Welcome to Laptop Info</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- If you decide to add styles -->
+   //bootstrap additional styles
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
 <?php
 
-include 'includes/db_connection.php'; // Incluir el archivo de conexión
+include 'includes/db_connection.php'; // Include the connection file
 
-// Insertar datos si se envía el formulario
+// Insert data if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $manufacturer = $_POST['manufacturer'];
     $type = $_POST['type'];
     $price = $_POST['price'];
 
-    // Preparar y ejecutar la consulta
+    // Prepare and execute the query
     $sql = "INSERT INTO notebook (manufacturer, type, price) VALUES ('$manufacturer', '$type', '$price')";
     if ($conn->query($sql) === TRUE) {
-        echo "Nuevo notebook añadido";
+        echo "New notebook added";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -39,25 +39,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <form method="POST" action="">
-    Fabricante: <input type="text" name="manufacturer">
-    Tipo: <input type="text" name="type">
-    Precio: <input type="number" name="price">
-    <input type="submit" value="Agregar">
+    Manufacturer: <input type="text" name="manufacturer">
+    Type: <input type="text" name="type">
+    Price: <input type="number" name="price">
+    <input type="submit" value="Add">
 </form>
 
 
-<h2>Elementos de Notebook</h2>
+<h2>Notebook Items</h2>
 <?php
-// Recuperar y mostrar los elementos del notebook
-$sql = "SELECT id, manufacturer, type, price FROM notebook"; // Seleccionando columnas relevantes
+// Retrieve and display notebook items
+$sql = "SELECT id, manufacturer, type, price FROM notebook"; // Selecting relevant columns
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo "ID: " . $row["id"] . " - Fabricante: " . $row["manufacturer"] . " - Tipo: " . $row["type"] . " - Precio: " . $row["price"] . "<br>";
+        echo "ID: " . $row["id"] . " - Manufacturer: " . $row["manufacturer"] . " - Type: " . $row["type"] . " - Price: " . $row["price"] . "<br>";
     }
 } else {
-    echo "No hay elementos en la tabla de notebooks.";
+    echo "No items in the notebook table.";
 }
 ?>
 
