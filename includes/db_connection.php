@@ -1,16 +1,16 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = ""; // Cambia si tienes una contraseña
+$password = ""; //for now we dont have password
 
 //$dbname = "Laptop";
-$dbname = "laravel"; // Nombre de tu base de datos
+$dbname = "Laptop "; // Name of your database is laptop so we need to be sure it not mix it with other dbs
 
-// Crear la conexión
+// Create the connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Revisar la conexión
+// Check the connection
 if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

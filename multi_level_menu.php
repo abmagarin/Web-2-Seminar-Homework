@@ -12,22 +12,23 @@ if ($conn->connect_error) {
 }
 
 // Function to build the menu
-function buildMenu($parent_id = NULL, $menu_items = [], $conn) {
+function buildMenu($conn, $parent_id = NULL, $menu_items = []) {
     $menu = "";
     $sql = "SELECT * FROM menu_items WHERE parent_id " . ($parent_id === NULL ? "IS NULL" : "= $parent_id");
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) {
         $menu .= "<ul>";
         while ($row = $result->fetch_assoc()) {
             $menu .= "<li>" . $row['name'];
-            $menu .= buildMenu($row['id'], $menu_items, $conn);
+            $menu .= buildMenu($conn, $row['id'], $menu_items);
             $menu .= "</li>";
         }
         $menu .= "</ul>";
     }
     return $menu;
 }
+
 
 // Display the menu
 echo buildMenu(NULL, [], $conn);
