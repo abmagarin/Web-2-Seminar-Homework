@@ -4,6 +4,8 @@ $username = "root";
 $password = "";
 $dbname = "Laptop";
 
+//sudo /opt/lampp/lampp start
+
 // Create the connection
 $conn = new mysqli($servername, $username, $password);
 
@@ -50,18 +52,12 @@ CREATE TABLE IF NOT EXISTS processor (
     type VARCHAR(50) NOT NULL
 );
 
-//JS added for table
-//demo
-//Creating the Database Table for Menu Items 
-
 CREATE TABLE menu_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     parent_id INT DEFAULT NULL,
     FOREIGN KEY (parent_id) REFERENCES menu_items(id) ON DELETE CASCADE
 );
-// Registration, Login, and Role Separation
-//Step: Create the users table in your database.
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -69,9 +65,6 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     role ENUM('visitor', 'registered_visitor', 'admin') NOT NULL DEFAULT 'visitor'
 );
-
-
-//
 
 ";
 
