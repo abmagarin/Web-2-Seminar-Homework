@@ -15,7 +15,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verify the connection
 if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
 // Create the SQL query to delete the data
