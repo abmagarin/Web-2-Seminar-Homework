@@ -158,6 +158,22 @@ foreach ($rows as $row) {
     
 }
 
+    $sql = "INSERT INTO menu_items (id, name, parent_id) VALUES
+    (1, 'Home', NULL),
+    (2, 'Products', NULL),
+    (3, 'Electronics', 2),
+    (4, 'Phones', 3),
+    (5, 'Computers', 3),
+    (6, 'Clothing', 2),
+    (7, 'About Us', NULL),
+    (8, 'Contact', NULL)";
+    if ($conn->query($sql) === TRUE) {
+        echo "menu_items filled<br>";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+
 // Close the connection
 $conn->close();
 ?>

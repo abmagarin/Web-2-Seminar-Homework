@@ -2,18 +2,23 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include 'multi_level_menu.php'; // Include the multi-level menu
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    //ENGLISH Here need to add Hungarian soon----------
-    <title>Bicycle Rental Application && Welcome to Laptop Info</title>
-    <link rel="stylesheet" href="css/styles.css"> <!-- If you decide to add styles -->
-   //bootstrap additional styles
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Laptop Menu</title>
+    <nav class="navbar">
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.php">About Us</a></li>
+        <li><a href="products.php">Products</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a href="login.php">Login</a></li>
+    </ul>
+</nav>
+
 </head>
 <body>
 

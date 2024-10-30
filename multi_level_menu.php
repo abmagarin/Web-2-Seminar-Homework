@@ -1,4 +1,9 @@
 <?php
+// This lines print the fails on screen when it fails
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Database connection maybe we dont need it as includes has it
 $servername = "localhost";
 $username = "root";
@@ -10,6 +15,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 
 // Function to build the menu
 function buildMenu($conn, $parent_id = NULL, $menu_items = []) {
@@ -31,7 +37,7 @@ function buildMenu($conn, $parent_id = NULL, $menu_items = []) {
 
 
 // Display the menu
-echo buildMenu(NULL, [], $conn);
+echo buildMenu($conn, NULL, []);
 
 // Close the connection
 $conn->close();
