@@ -61,6 +61,18 @@ body {
 
 body {
   letter-spacing: 0.03rem;
+
+  .logo-img {
+    max-height: 70%; /* Make sure the logo fits within the navbar height */
+    max-width: 100px; /* Adjust this value as needed */
+    height: 40%; /* Maintain aspect ratio */
+  }
+  
+  .navbar-brand {
+    padding: 0; /* Remove default padding */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center align vertically */
+  }
 }
 
 h1,
@@ -649,14 +661,12 @@ a {
   text-align: center;
   box-shadow: none;
   cursor: default;
-  -webkit-transform: translateY(-40px);
   transform: translateY(-40px);
-  -webkit-backface-visibility: hidden;
-  -webkit-transition-property: -webkit-transform;
+  backface-visibility: hidden;
   transition-property: transform;
-  -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
+
 .is-visible .search-popup-container {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
