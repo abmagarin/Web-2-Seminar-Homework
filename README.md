@@ -19,12 +19,12 @@ Here is a list of objectives that need to be completed for the project. Use the 
 
 1. **Exercise 1 (Required element!)**
     - [x] a. Store the names of the menu items in the database.
-    - [ ] b. Implement a multi-level menu system.
+    - [x] b. Implement a multi-level menu system.
     - [ ] c. Registration and Login: Implement roles for "visitor", "registered visitor", and "admin".
-    - [ ] d. On the first page, introduce the selected topic.
+    - [x] d. On the first page, introduce the selected topic.
 
 2. **Find and apply a free responsive theme for your pages.** *(5 points)*
-    - [ ] Describe which theme you have chosen in the documentation. You can find ideas at the end of this document.
+    - [x] Describe which theme you have chosen in the documentation. You can find ideas at the end of this document.
 
 3. **SOAP server menu: Create a RESTful web service** *(5 points)*
     - [ ] Use all tables in the database for this task.
