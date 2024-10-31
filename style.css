@@ -62,19 +62,34 @@ body {
 body {
   letter-spacing: 0.03rem;
 
-  .logo-img {
-    max-height: 70%; /* Make sure the logo fits within the navbar height */
-    max-width: 100px; /* Adjust this value as needed */
-    height: 40%; /* Maintain aspect ratio */
-  }
   
-  .navbar-brand {
-    padding: 0; /* Remove default padding */
-    display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Center align vertically */
-  }
+}
+.logo-img {
+  max-height: 70%; /* Make sure the logo fits within the navbar height */
+  max-width: 100px; /* Adjust this value as needed */
+  height: 40%; /* Maintain aspect ratio */
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+}
+.logo-img:hover{
+  filter: grayscale(0%);
 }
 
+.navbar-brand {
+  padding: 0; /* Remove default padding */
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Center align vertically */
+}
+/* Initial grayscale effect */
+.footer-intro .tlogo {
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+}
+
+/* On hover, remove the grayscale effect */
+.footer-intro .tlogo:hover {
+  filter: grayscale(0%);
+}
 h1,
 .h1,
 h2,
@@ -152,6 +167,7 @@ h6,
 a {
   text-decoration: none;
 }
+
 
 /* container fluid */
 .container-fluid {
@@ -1521,8 +1537,7 @@ a.btn-link.text-light:after {
 .product-filter .accordion-body>div,
 .product-filter .accordion-body a {
   display: block;
-  padding: 10px;
-  margin-bottom: 1.25rem;
+  padding: 10px; 
   border: 1px solid #EBEBEA;
 }
 
