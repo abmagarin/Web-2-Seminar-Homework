@@ -1,7 +1,8 @@
 <?php
 session_start();
 include 'includes/db_connection.php'; 
-// Ensure this file works
+// require 'database.php'; // Assuming you have a database connection file
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
@@ -10,23 +11,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM users WHERE username='$username'";
     $result = $conn->query($sql);
 
-    if ($result->num_rows == 1) {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) {
             $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
-            echo "Login successful!";
+            header("Location: index.php");
         } else {
-            echo "Invalid password.";
+            echo "Incorrect password.";
         }
     } else {
-        echo "No user found with that username.";
+        echo "No user found.";
     }
 }
 ?>
-
-<form method="POST" action="">
-    Username: <input type="text" name="username" required>
-    Password: <input type="password" name="password" required>
-    <input type="submit" value="Login">
-</form>

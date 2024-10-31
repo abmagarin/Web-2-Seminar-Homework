@@ -1,29 +1,32 @@
+
 <?php
-include 'includes/db_connection.php'; 
-// Ensure this file works
+session_start();
+require 'includes/db_connection.php'; // Assuming you have a database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password
-    $role = $_POST['role'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (username, password, role) VALUES ('$username', '$password', '$role')";
-    if ($conn->query($sql) === TRUE) {
-        echo "New user registered";
+    // Check if the username already exists
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Username already exists
+        echo "Username already exists. Please choose a different username.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Username does not exist, proceed with registration
+        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt->bind_param("ss", $username, $password);
+
+        if ($stmt->execute()) {
+            $_SESSION['username'] = $username;
+            header("Location: index.php");
+        } else {
+            echo "Error: " . $stmt->error;
+        }
     }
 }
 ?>
-
-<form method="POST" action="">
-    Username: <input type="text" name="username" required>
-    Password: <input type="password" name="password" required>
-    Role: 
-    <select name="role">
-        <option value="visitor">Visitor</option>
-        <option value="registered_visitor">Registered Visitor</option>
-        <option value="admin">Admin</option>
-    </select>
-    <input type="submit" value="Register">
-</form>
