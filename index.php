@@ -430,6 +430,47 @@
           </div>
         </div>
 
+
+
+        <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
+            <li class="nav-item">
+                <?php if(isset($_SESSION['username'])): ?>
+                    <span>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                    <button id="logoutButton">Log Out</button>
+                <?php else: ?>
+                    <button id="loginButton">Log In / Register</button>
+                <?php endif; ?>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Log In / Register Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Log In</h2>
+            <form id="loginForm" action="login.php" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="registerLink">Register here</a></p>
+            
+            <h2 id="registerHeading" style="display:none;">Register</h2>
+            <form id="registerForm" action="register.php" method="POST" style="display:none;">
+                <label for="new_username">Username:</label>
+                <input type="text" id="new_username" name="username" required>
+                <label for="new_password">Password:</label>
+                <input type="password" id="new_password" name="password" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+
         <div class="col-3 col-lg-auto">
           <ul class="list-unstyled d-flex m-0">
             <li class="d-none d-lg-block">

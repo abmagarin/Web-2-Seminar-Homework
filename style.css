@@ -61,8 +61,6 @@ body {
 
 body {
   letter-spacing: 0.03rem;
-
-  
 }
 .logo-img {
   max-height: 70%; /* Make sure the logo fits within the navbar height */
@@ -73,8 +71,7 @@ body {
 }
 .logo-img:hover{
   filter: grayscale(0%);
-}
-
+} 
 .navbar-brand {
   padding: 0; /* Remove default padding */
   display: flex; /* Use flexbox for alignment */
