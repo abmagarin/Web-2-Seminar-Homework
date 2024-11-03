@@ -380,56 +380,6 @@
                   <a class="nav-link" href="#">Contact</a>
                 </li>
 
-                <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
-                    <?php if (isset($_SESSION['username'])): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profile.php">
-                                <img class="user-icon" src="images/user_logged_in.png" alt="User Icon">
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="logout.php">Logout</a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="loginModalBtn">
-                                <img class="user-icon" src="images/user_not_logged_in.png" alt="User Icon">
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-
-                <!-- Login/Register Modal -->
-                <div id="authModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <div id="authForms">
-                            <!-- Login Form -->
-                            <form id="loginForm" action="login.php" method="post">
-                                <h2>Login</h2>
-                                <input type="text" name="username" placeholder="Username" required>
-                                <input type="password" name="password" placeholder="Password" required>
-                                <button type="submit">Login</button>
-                                <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
-                            </form>
-                            <!-- Register Form -->
-                            <form id="registerForm" action="register.php" method="post" style="display: none;">
-                                <h2>Register</h2>
-                                <input type="text" name="username" placeholder="Username" required>
-                                <input type="password" name="password" placeholder="Password" required>
-                                <button type="submit">Register</button>
-                                <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-
-              </ul>
-            </div>
-          </div>
-        </div>
-
         <div class="col-3 col-lg-auto">
           <ul class="list-unstyled d-flex m-0">
             <li class="d-none d-lg-block">
