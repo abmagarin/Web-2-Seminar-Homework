@@ -109,9 +109,9 @@ body {
   letter-spacing: 0.03rem;
 }
 .logo-img {
-  max-height: 70%; /* Make sure the logo fits within the navbar height */
-  max-width: 100px; /* Adjust this value as needed */
-  height: 40%; /* Maintain aspect ratio */
+  height: 100%; /* Make sure the logo fits within the navbar height */
+  width: 100px; /* Adjust this value as needed */
+     
   filter: grayscale(100%);
   transition: filter 0.5s ease;
 }
