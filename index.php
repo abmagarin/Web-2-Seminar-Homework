@@ -1,4 +1,7 @@
 
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
@@ -233,7 +236,7 @@
       </div>
     </div>
   </div>
-
+  <?php include 'auth_modal.php'; ?>
   <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center">
     <div class="container-fluid">
       <div class="row justify-content-between align-items-center w-100">
@@ -375,27 +378,16 @@
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Blog</a>
+                  <a class="nav-link" href="login.php">Blog</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Contact</a>
                 </li>
                 <li class="nav-item">
-    <?php if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id'])): ?>
-        <a class="nav-link" href="#" id="authDropdown" data-bs-toggle="modal" data-bs-target="#authModal">
-            <i class="fas fa-sign-in-alt"></i> Sign In
-        </a>
-    <?php else: ?>
-        <form action="logout.php" method="post">
-            <button type="submit" class="nav-link btn btn-link" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i> Log Out
-            </button>
-        </form>
-    <?php endif; ?>
-</li>
-
-
-              
+                    <a class="nav-link" href="#" id="authDropdown" data-bs-toggle="modal" data-bs-target="#authModal">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </a>
+                </li>            
 <!-- HTML code for the authentication modal -->
 <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
