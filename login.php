@@ -1,5 +1,5 @@
 <?php
-// Database connection
+// login.php
 include 'includes/db_connection.php';
 
 session_start();
@@ -25,4 +25,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo 'Invalid credentials.';
     }
 }
+
 ?>
