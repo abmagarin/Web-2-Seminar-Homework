@@ -237,6 +237,14 @@ session_start();
     </div>
   </div>
   <?php include 'auth_modal.php'; ?>
+  <?php
+    if (isset($_SESSION['username'])) {
+        $username = $_SESSION['username'];
+    } else {
+        $username = null;
+    }
+  ?>
+
   <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center">
     <div class="container-fluid">
       <div class="row justify-content-between align-items-center w-100">
@@ -383,11 +391,27 @@ session_start();
                 <li class="nav-item">
                   <a class="nav-link" href="#">Contact</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="authDropdown" data-bs-toggle="modal" data-bs-target="#authModal">
+                <li class="nav-item dropdown">
+                <?php if ($username): ?>
+                    <!-- If the user is logged in, display their name without green color -->
+                    <a class="nav-link dropdown-toggle fw-bold" href="#" id="dropdownPages" data-bs-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-user"></i> <?php echo $username; ?>
+                    </a>
+                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
+                      <li>
+                        <a href="logout.php" class="dropdown-item item-anchor">LOG OUT</a>
+                      </li>
+                    </ul>
+                <?php else: ?>
+                    <!-- If the user is not logged in, display the link without red color -->
+                    <a class="nav-link fw-bold" href="#" id="authDropdown" data-bs-toggle="modal" data-bs-target="#authModal">
                         <i class="fas fa-sign-in-alt"></i> Sign In
                     </a>
-                </li>            
+                <?php endif; ?>
+            </li>
+
+
 <!-- HTML code for the authentication modal -->
 <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
