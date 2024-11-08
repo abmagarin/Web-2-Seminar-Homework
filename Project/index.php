@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('./includes/config.inc.php');
+include 'includes/db_connection.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : '/';
 
