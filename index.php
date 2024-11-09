@@ -235,12 +235,14 @@ session_start();
   </div>
   <?php include 'includes/auth_modal.php'; ?>
   <?php
-    if (isset($_SESSION['username'])) {
-        $username = $_SESSION['username'];
-    } else {
-        $username = null;
-    }
-  ?>
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+    $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
+} else {
+    $username = null;
+    $isAdmin = false;
+}
+?>
 
   <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center">
     <div class="container-fluid">
@@ -389,24 +391,32 @@ session_start();
                   <a class="nav-link" href="#">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
-                  
-                <?php if ($username): ?>
-                    <!-- If the user is logged in, display their name without green color -->
-                    <a class="nav-link dropdown-toggle fw-bold" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-user"></i> <?php echo $username; ?>
+                <?php if (isset($_SESSION['username'])): ?>
+                <!-- If the user is logged in, display their username -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-bold" href="#" id="dropdownPages" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?>
                     </a>
                     <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
-                      <li>
-                        <a href="includes/logout.php" class="dropdown-item item-anchor">LOG OUT</a>
-                      </li>
+                        <!-- If the user is an admin, show the admin dashboard link -->
+                        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']): ?>
+                            <li>
+                                <a href="admin_dashboard.php" class="dropdown-item item-anchor">Admin Dashboard</a>
+                            </li>
+                        <?php endif; ?>
+                        <li>
+                            <a href="includes/logout.php" class="dropdown-item item-anchor">Log Out</a>
+                        </li>
                     </ul>
-                <?php else: ?>
-                    <!-- If the user is not logged in, display the link without red color -->
+                </li>
+            <?php else: ?>
+                <!-- If the user is not logged in, show the login link -->
+                <li class="nav-item">
                     <a class="nav-link fw-bold" href="#" id="authDropdown" data-bs-toggle="modal" data-bs-target="#authModal">
                         <i class="fas fa-sign-in-alt"></i> Sign In
                     </a>
-                <?php endif; ?>
+                </li>
+            <?php endif; ?>
                 </li>
               </ul>
             </div>
