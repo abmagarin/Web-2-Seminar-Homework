@@ -66,6 +66,32 @@ CREATE TABLE users (
     role ENUM('visitor', 'registered_visitor', 'admin') NOT NULL DEFAULT 'visitor'
 );
 
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    reference_code VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE reference_codes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(10) NOT NULL UNIQUE
+);
+
+
+INSERT INTO reference_codes (code, used) VALUES
+('code1', 0),
+('code2', 0),
+('code3', 0),
+('code4', 0),
+('code5', 0),
+('code6', 0),
+('code7', 0),
+('code8', 0),
+('code9', 0),
+('code10', 0);
+
 ";
 
 // Execute the query and check for errors
