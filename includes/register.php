@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include 'includes/db_connection.php';
+include '../data/db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Take the variables from the HTTP request and store them in PHP variables

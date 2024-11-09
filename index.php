@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 ?>
@@ -13,18 +12,16 @@ session_start();
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/vendor.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap"
     rel="stylesheet">
-  
 </head>
 
 <body class="homepage">
- 
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <defs>
       <symbol xmlns="http://www.w3.org/2000/svg" id="instagram" viewBox="0 0 15 15">
@@ -236,7 +233,7 @@ session_start();
       </div>
     </div>
   </div>
-  <?php include 'auth_modal.php'; ?>
+  <?php include 'includes/auth_modal.php'; ?>
   <?php
     if (isset($_SESSION['username'])) {
         $username = $_SESSION['username'];
@@ -386,12 +383,13 @@ session_start();
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="login.php">Blog</a>
+                  <a class="nav-link" href="#">Blog</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
+                  
                 <?php if ($username): ?>
                     <!-- If the user is logged in, display their name without green color -->
                     <a class="nav-link dropdown-toggle fw-bold" href="#" id="dropdownPages" data-bs-toggle="dropdown"
@@ -400,7 +398,7 @@ session_start();
                     </a>
                     <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
                       <li>
-                        <a href="logout.php" class="dropdown-item item-anchor">LOG OUT</a>
+                        <a href="includes/logout.php" class="dropdown-item item-anchor">LOG OUT</a>
                       </li>
                     </ul>
                 <?php else: ?>
@@ -409,149 +407,7 @@ session_start();
                         <i class="fas fa-sign-in-alt"></i> Sign In
                     </a>
                 <?php endif; ?>
-            </li>
-
-
-<!-- HTML code for the authentication modal -->
-<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Navigation tabs -->
-                <ul class="nav nav-pills mb-4 justify-content-center" id="authTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active bg-success" id="login-tab" data-bs-toggle="pill" data-bs-target="#login" type="button">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </button>
-                    </li>
-                    <li class="nav-item mx-2" role="presentation">
-                        <button class="nav-link bg-success" id="register-tab" data-bs-toggle="pill" data-bs-target="#register" type="button">
-                            <i class="fas fa-user-plus"></i> Register
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link bg-success" id="admin-tab" data-bs-toggle="pill" data-bs-target="#admin" type="button">
-                            <i class="fas fa-user-shield"></i> Admin
-                        </button>
-                    </li>
-                </ul>
-
-                <!-- Tab content -->
-                <div class="tab-content" id="authTabContent">
-                    <!-- Login Form -->
-                    <div class="tab-pane fade show active" id="login" role="tabpanel">
-                        <form id="loginForm" action="includes/login_process.php" method="POST">
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="loginEmail" name="email" required>
-                                <label for="loginEmail">Email address</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="loginPassword" name="password" required>
-                                <label for="loginPassword">Password</label>
-                                <div class="form-text">Minimum 8 characters, at least one letter and one number</div>
-                            </div>
-                            <button type="submit" class="btn btn-success w-100">
-                                <i class="fas fa-sign-in-alt"></i> Login
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Register Form -->
-                    <div class="tab-pane fade" id="register" role="tabpanel">
-                        <form id="registerForm" action="includes/register_process.php" method="POST">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="registerUsername" name="username" pattern="^[a-zA-Z0-9]{4,20}$" required>
-                                <label for="registerUsername">Username</label>
-                                <div class="form-text">4-20 characters, letters and numbers only</div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="registerEmail" name="email" required>
-                                <label for="registerEmail">Email address</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="registerPassword" name="password" required>
-                                <label for="registerPassword">Password</label>
-                                <div class="form-text">Minimum 8 characters, at least one letter and one number</div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="confirmPassword" name="confirm_password" required>
-                                <label for="confirmPassword">Confirm Password</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="fas fa-user-plus"></i> Register
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Admin Login Form -->
-                    <div class="tab-pane fade" id="admin" role="tabpanel">
-                        <form id="adminForm" action="includes/admin_login_process.php" method="POST">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="adminUsername" name="admin_username" required>
-                                <label for="adminUsername">Admin Username</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="adminPassword" name="admin_password" required>
-                                <label for="adminPassword">Admin Password</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="adminCode" name="admin_code" required>
-                                <label for="adminCode">Admin Access Code</label>
-                            </div>
-                            <button type="submit" class="btn btn-dark w-100">
-                                <i class="fas fa-user-shield"></i> Admin Login
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php
-require_once 'includes/db_connection.php';
- 
-
-// Check if the user is logged in
-if (isset($_SESSION['user_id'])) {
-    $userId = $_SESSION['user_id'];
-    $sql = "SELECT * FROM users WHERE id = ?";
-
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("i", $userId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-
-        // Display the user's information on the dashboard
-        $welcomeMessage = "Welcome, " . htmlspecialchars($user['username']) . "!<br>";
-        $welcomeMessage .= "Email: " . htmlspecialchars($user['email']) . "<br>";
-        $welcomeMessage .= "<a href='#' id='logoutBtn'>Logout</a>";
-        $isLoggedIn = true;
-
-        $stmt->close();
-    } else {
-        $welcomeMessage = "Error preparing statement: " . $conn->error;
-        $isLoggedIn = false;
-    }
-} elseif (isset($_SESSION['admin_id'])) {
-    // Redirect admin to admin dashboard
-    header("Location: admin_dashboard.php");
-    exit;
-} else {
-    // User is not logged in, show login/register options
-    $welcomeMessage = "Please <a href='#' data-bs-toggle='modal' data-bs-target='#authModal'>login or register</a>.";
-    $isLoggedIn = false;
-}
-
-$conn->close();
-?>
-
-                
+                </li>
               </ul>
             </div>
           </div>
@@ -564,8 +420,6 @@ $conn->close();
             <li class="nav-item">
               <a href="index.php" class="text-uppercase mx-3">Wishlist <span class="wishlist-count">(0)</span>
               </a>
-         
-              
             <li class="nav-item">
               <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
                 aria-controls="offcanvasCart">
@@ -583,9 +437,7 @@ $conn->close();
             </li>
           </ul>
         </div>
-
       </div>
-
     </div>
   </nav>
 
@@ -1530,10 +1382,10 @@ $conn->close();
         <div class="col-md-3 col-sm-6">
           <div class="footer-menu footer-menu-004 border-animation-left">
             <h5 class="widget-title text-uppercase mb-4">Contact Us</h5>
-            <p>Do you have any questions or suggestions? <a href="mailto:contact@yourcompany.com"
-                class="item-anchor">contact@yourcompany.com</a></p>
-            <p>Do you need support? Give us a call. <a href="tel:+43 720 11 52 78" class="item-anchor">+43 720 11 52
-                78</a>
+            <p>Do you have any questions or suggestions? <br><a href="mailto:contact@yourcompany.com"
+                class="item-anchor">contact@alberto.com</a><a href="mailto:contact@yourcompany.com"
+                class="item-anchor">contact@suleyman.com</a></p>
+            <p>Do you need support? Give us a call. <a href="tel:+36 20222222" class="item-anchor">+3620222222</a>
             </p>
           </div>
         </div>
@@ -1572,75 +1424,5 @@ $conn->close();
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="js/script.min.js"></script>
-  <script> src="script.js" </script>
-    
-    <script>
-        $(document).ready(function() {
-            function handleAuthResponse(response, errorElement, formElement, modalId) {
-                if (response.success) {
-                    location.reload();
-                } else {
-                    $(errorElement).text(response.message);
-                }
-            }
-
-            
-        $('#loginForm').submit(function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: 'includes/login_process.php',
-                type: 'POST',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    if (response.success) {
-                      console.log('we are here ');
-                        location.reload();
-                    } else {
-                        $('#loginError').text(response.message);
-                    }
-                }
-            });
-        });
-    
-
-         
-            $('#registerForm').submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: 'includes/register_process.php',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    dataType: 'json',
-                    success: function(response) {
-                        handleAuthResponse(response, '#registerError', '#registerForm', '#authModal');
-                    }
-                });
-            });
-
-            $('#adminForm').submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: 'includes/admin_login_process.php',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    dataType: 'json',
-                    success: function(response) {
-                        handleAuthResponse(response, '#adminError', '#adminForm', '#authModal');
-                    }
-                });
-            });
-
-            // Update Navbar based on session
-            <?php if (isset($_SESSION['user_id'])): ?>
-                $('#authNavItem').html('<a class="nav-link" href="includes/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>');
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['admin_id'])): ?>
-                $('#authNavItem').html('<a class="nav-link" href="includes/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>');
-            <?php endif; ?>
-        });
-    </script>
 </body>
-
 </html> 

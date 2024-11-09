@@ -1,6 +1,6 @@
 <?php
 // login.php
-include 'includes/db_connection.php';
+include '../data/db_connection.php';
 
 session_start();
 

@@ -35,7 +35,7 @@
 
         // Perform AJAX request
         $.ajax({
-            url: 'login.php',  // URL of the PHP file handling the login
+            url: 'includes/login.php',  // URL of the PHP file handling the login
             type: 'POST',
             data: {
                 username: username,
@@ -92,7 +92,7 @@
         }
 
         $.ajax({
-            url: 'register.php',  // URL to the PHP file handling registration
+            url: 'includes/register.php',  // URL to the PHP file handling registration
             type: 'POST',
             data: {
                 username: username,
@@ -102,7 +102,7 @@
                 if (response === 'success') {
                     // Redirect or show success message if registration is successful
                     alert('Registration successful!');
-                    window.location.href = 'index.php';  // Redirect to index.php on success
+                    window.location.href = 'index.php';
                 } else {
                     // Show error message if registration fails
                     $('#registerError').text(response).show();
