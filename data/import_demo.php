@@ -25,9 +25,9 @@ class DatabaseImporter {
         // Clear existing data
         $this->conn->query("TRUNCATE TABLE processor");
         
-        $file = __DIR__ . '/images/processor.txt';
+        $file = __DIR__ . '/processor.txt';
         if (!file_exists($file)) {
-            die("Error: processor.txt file not found in " . __DIR__ . '/images/');
+            die("Error: processor.txt file not found in " . __DIR__ . '/processor.txt');
         }
         
         $content = file_get_contents($file);
@@ -80,7 +80,7 @@ class DatabaseImporter {
         // Clear existing data
         $this->conn->query("TRUNCATE TABLE opsystem");
         
-        $file = __DIR__ . '/images/opsystem.txt';
+        $file = __DIR__ . '/opsystem.txt';
         $content = file_get_contents($file);
         $content = $this->removeBOM($content);
         $lines = explode("\n", $content);
@@ -123,7 +123,7 @@ class DatabaseImporter {
         // Clear existing data
         $this->conn->query("TRUNCATE TABLE notebook");
         
-        $file = __DIR__ . '/images/notebook.txt';
+        $file = __DIR__ . '/notebook.txt';
         $content = file_get_contents($file);
         $content = $this->removeBOM($content);
         $lines = explode("\n", $content);
