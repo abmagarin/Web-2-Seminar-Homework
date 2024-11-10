@@ -95,11 +95,16 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Welcome, <?php echo $admin_username; ?></a>
+                    <a class="nav-link" href="#">Welcome, Dear Administrator <?php echo $admin_username; ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Logout</a>
+                    <a class="nav-link btn btn-primary text-white" href="index.php">Back to Home</a>
                 </li>
+                 
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white" href="includes/logout.php">Logout</a>
+                </li>
+
             </ul>
         </div>
     </nav>
