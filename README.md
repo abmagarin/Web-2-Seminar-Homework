@@ -52,11 +52,11 @@ Here is a list of objectives that need to be completed for the project. Use the 
     - [ ] The URL must include the name of one of the group members.
 
 10. **Use the GitHub version control system (Mandatory element!)**
-    - [ ] Upload the project in at least 5 steps per person, showing sub-states of the project.
-    - [ ] Each team member must have an identifiable username on GitHub.
+    - [x] Upload the project in at least 5 steps per person, showing sub-states of the project.
+    - [x] Each team member must have an identifiable username on GitHub.
 
 11. **Use the Project work method on GitHub** *(5 points)*
-    - [ ] Implement proper project management using GitHub project boards and issues.
+    - [x] Implement proper project management using GitHub project boards and issues.
 
 12. **Create a documentation of at least 15 pages with screenshots (Mandatory element!)**
     - [ ] Present the application and describe how each task was implemented.
