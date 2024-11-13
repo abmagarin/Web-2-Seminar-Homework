@@ -293,28 +293,28 @@ if (isset($_SESSION['username'])) {
                     aria-haspopup="true" aria-expanded="false">Shop</a>
                   <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownShop">
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Shop Sidebar </a>
+                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Sidebar </a>
                     </li>
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Shop Three Column </a>
+                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Three Column </a>
                     </li>
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Shop Three Column Wide </a>
+                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Three Column Wide </a>
                     </li>
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Shop Four Column </a>
+                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Four Column </a>
                     </li>
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Shop Four Column Wide </a>
+                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Four Column Wide </a>
                     </li>
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Shop Six Column </a>
+                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Six Column </a>
                     </li>
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Shop Six Column Wide </a>
+                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Six Column Wide </a>
                     </li>
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Single Product </a>
+                      <a href="includes/shop.php" class="dropdown-item item-anchor">Single Product </a>
                     </li>
                     <li>
                       <a href="index.php" class="dropdown-item item-anchor">Single Product V2 </a>
