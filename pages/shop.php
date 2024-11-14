@@ -145,8 +145,26 @@ $offset = ($currentPage - 1) * $itemsPerPage;
 $notebooksOnPage = array_slice($notebooks, $offset, $itemsPerPage);
 ?>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="#">
+            <img src="../images/logo.png" height="80" alt="Your Logo">
+        </a>
+        <div class="text-center flex-grow-1">
+            <h1 class="navbar-text mb-0">Our Laptop Collection</h1>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a href="../index.php" class="btn btn-outline-primary mr-2">
+                <i class="fas fa-home mr-1"></i>Home
+            </a>
+             
+        </div>
+    </div>
+</nav>
+
+
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Our Laptop Collection</h1>
+    
     <div class="row">
         <?php foreach ($notebooksOnPage as $notebook): ?>
             <div class="col-md-4 mb-4">
@@ -256,27 +274,80 @@ $notebooksOnPage = array_slice($notebooks, $offset, $itemsPerPage);
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
-        $('.add-to-basket').on('click', function(e) {
-            e.stopPropagation();
-            const notebookId = $(this).data('id');
-            
-            $.ajax({
-                url: 'add_to_basket.php',
-                method: 'POST',
-                data: {
-                    notebook_id: notebookId,
-                    quantity: 1
-                },
-                success: function(response) {
-                    alert(response);
-                    // Update basket count in navbar
-                },
-                error: function() {
-                    alert('Error adding to basket');
-                }
-            });
+    $('.add-to-basket').on('click', function(e) {
+        e.stopPropagation();
+        const notebookId = $(this).data('id');
+        const $addButton = $(this);
+        
+        // Create notification container if not exists
+        if ($('#notification-container').length === 0) {
+            $('body').append('<div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>');
+        }
+        
+        $.ajax({
+            url: '../includes/add_to_basket.php',
+            method: 'POST',
+            data: {
+                notebook_id: notebookId,
+                quantity: 1
+            },
+            success: function(response) {
+                // Green success notification
+                const $notification = $(`
+                    <div class="alert alert-success" style="
+                        background-color: #dff0d8; 
+                        color: #3c763d; 
+                        border: 1px solid #d6e9c6; 
+                        padding: 15px; 
+                        margin-bottom: 10px; 
+                        border-radius: 4px;
+                    ">
+                        ${response}
+                    </div>
+                `);
+                
+                $('#notification-container').append($notification);
+                
+                // Auto-remove after 3 seconds
+                setTimeout(() => {
+                    $notification.fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                }, 3000);
+                
+                // Optional: Briefly highlight the add to basket button
+                $addButton.addClass('btn-success');
+                setTimeout(() => {
+                    $addButton.removeClass('btn-success');
+                }, 1000);
+            },
+            error: function() {
+                // Red error notification
+                const $errorNotification = $(`
+                    <div class="alert alert-danger" style="
+                        background-color: #f2dede; 
+                        color: #a94442; 
+                        border: 1px solid #ebccd1; 
+                        padding: 15px; 
+                        margin-bottom: 10px; 
+                        border-radius: 4px;
+                    ">
+                        Error adding to basket
+                    </div>
+                `);
+                
+                $('#notification-container').append($errorNotification);
+                
+                // Auto-remove after 3 seconds
+                setTimeout(() => {
+                    $errorNotification.fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                }, 3000);
+            }
         });
     });
+});
     </script>
 </body>
 </html>

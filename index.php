@@ -198,34 +198,34 @@ session_start();
     <div class="offcanvas-body">
       <div class="order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Your cart</span>
+          <span class="text-primary">Your cart COMING SOON </span>
           <span class="badge bg-primary rounded-pill">3</span>
         </h4>
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Growers cider</h6>
-              <small class="text-body-secondary">Brief description</small>
+              <h6 class="my-0">Notebook name</h6>
+              <small class="text-body-secondary">  description</small>
             </div>
-            <span class="text-body-secondary">$12</span>
+            <span class="text-body-secondary">$112</span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Fresh grapes</h6>
+              <h6 class="my-0">Notebook name</h6>
               <small class="text-body-secondary">Brief description</small>
             </div>
-            <span class="text-body-secondary">$8</span>
+            <span class="text-body-secondary">$128</span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Heinz tomato ketchup</h6>
+              <h6 class="my-0">Notebook name</h6>
               <small class="text-body-secondary">Brief description</small>
             </div>
-            <span class="text-body-secondary">$5</span>
+            <span class="text-body-secondary">$15</span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>Total (USD)</span>
-            <strong>$20</strong>
+            <strong>$2220</strong>
           </li>
         </ul>
 
@@ -293,28 +293,28 @@ if (isset($_SESSION['username'])) {
                     aria-haspopup="true" aria-expanded="false">Shop</a>
                   <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownShop">
                     <li>
-                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Sidebar </a>
+                      <a href="pages/shop.php" class="dropdown-item item-anchor">Shop Sidebar </a>
                     </li>
                     <li>
-                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Three Column </a>
+                      <a href="pages/shop.php" class="dropdown-item item-anchor">Shop Three Column </a>
                     </li>
                     <li>
-                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Three Column Wide </a>
+                      <a href="pages/shop.php" class="dropdown-item item-anchor">Shop Three Column Wide </a>
                     </li>
                     <li>
-                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Four Column </a>
+                      <a href="pages/shop.php" class="dropdown-item item-anchor">Shop Four Column </a>
                     </li>
                     <li>
-                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Four Column Wide </a>
+                      <a href="pages/shop.php" class="dropdown-item item-anchor">Shop Four Column Wide </a>
                     </li>
                     <li>
-                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Six Column </a>
+                      <a href="pages/shop.php" class="dropdown-item item-anchor">Shop Six Column </a>
                     </li>
                     <li>
-                      <a href="includes/shop.php" class="dropdown-item item-anchor">Shop Six Column Wide </a>
+                      <a href="pages/shop.php" class="dropdown-item item-anchor">Shop Six Column Wide </a>
                     </li>
                     <li>
-                      <a href="includes/shop.php" class="dropdown-item item-anchor">Single Product </a>
+                      <a href="pages/shop.php" class="dropdown-item item-anchor">Single Product </a>
                     </li>
                     <li>
                       <a href="index.php" class="dropdown-item item-anchor">Single Product V2 </a>
@@ -380,7 +380,7 @@ if (isset($_SESSION['username'])) {
                       <a href="index.php" class="dropdown-item item-anchor">Order Tracking </a>
                     </li>
                     <li>
-                      <a href="index.php" class="dropdown-item item-anchor">Wishlist </a>
+                      <a href="pages/basket_page.php" class="dropdown-item item-anchor">My Basket </a>
                     </li>
                   </ul>
                 </li>
@@ -428,7 +428,7 @@ if (isset($_SESSION['username'])) {
         <div class="col-3 col-lg-auto">
           <ul class="list-unstyled d-flex m-0">
             <li class="nav-item">
-              <a href="index.php" class="text-uppercase mx-3">Wishlist <span class="wishlist-count">(0)</span>
+              <a href="pages/basket_page.php" class="text-uppercase mx-3">My Basket <span class="wishlist-count">(0)</span>
               </a>
             <li class="nav-item">
               <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"

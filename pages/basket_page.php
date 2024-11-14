@@ -27,15 +27,38 @@
     </style>
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="#">
+            <img src="../images/logo.png" height="80" alt="Your Logo">
+        </a>
+        <div class="text-center flex-grow-1">
+            <h1 class="navbar-text mb-0">My basket</h1>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a href="../index.php" class="btn btn-outline-primary mr-2">
+                <i class="fas fa-home mr-1"></i>Home
+            </a>
+            <a href="shop.php" class="btn btn-success">
+                <i class="fas fa-shopping-cart mr-1"></i>Back to Shop
+            </a>
+        </div>
+    </div>
+</nav>
+
+
     <div class="container mt-5">
-        <h2>My Basket</h2>
+       
         <div id="basketItems" class="mt-4">
             <div class="loading">Loading your basket...</div>
         </div>
-        <div class="mt-4">
-            <h4>Total: <span id="totalPrice" class="price">0</span> HUF</h4>
-            <button id="generateInvoice" class="btn btn-success" disabled>Generate Invoice</button>
-        </div>
+        <div class="mt-4 p-4 bg-light rounded shadow-sm border border-success">
+    <h4 class="mb-3 text-dark">Total: <span id="totalPrice" class="price text-success">0</span> HUF</h4>
+    <button id="generateInvoice" class="btn btn-success btn-lg" disabled>
+        <i class="fas fa-file-invoice mr-2"></i>       Generate Invoice
+    </button>
+</div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
