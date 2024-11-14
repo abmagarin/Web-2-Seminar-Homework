@@ -121,7 +121,7 @@ class DatabaseImporter {
         echo "<h3>Importing Notebooks...</h3>";
         
         // Clear existing data
-        $this->conn->query("TRUNCATE TABLE notebook");
+        //$this->conn->query("TRUNCATE TABLE notebook");
         
         $file = __DIR__ . '/notebook.txt';
         $content = file_get_contents($file);

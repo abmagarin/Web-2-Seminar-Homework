@@ -21,8 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($adminPassword, $admin['password'])) {
             // Set session variables for the logged-in admin
             $_SESSION['username'] = $adminUsername;
+            $_SESSION['user_id'] = $admin['id'];
             $_SESSION['is_admin'] = true;  // Mark this user as admin
-
+            
             // Respond with success
             echo 'success';
         } else {

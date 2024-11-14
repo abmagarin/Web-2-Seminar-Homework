@@ -24,7 +24,7 @@ if ($conn->query($sql) === TRUE) {
 
 // Select the database
 $conn->select_db($dbname);
-
+ 
 // SQL to create the tables
 $sql = "
 CREATE TABLE IF NOT EXISTS notebook (
@@ -52,18 +52,10 @@ CREATE TABLE IF NOT EXISTS processor (
     type VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE menu_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    parent_id INT DEFAULT NULL,
-    FOREIGN KEY (parent_id) REFERENCES menu_items(id) ON DELETE CASCADE
-);
-
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-     
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE admins (
@@ -73,10 +65,20 @@ CREATE TABLE admins (
     reference_code VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS baskets (
+    basket_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT(6) UNSIGNED NOT NULL,
+    quantity INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (product_id) REFERENCES notebook(id)
+);
 
 CREATE TABLE reference_codes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    code VARCHAR(10) NOT NULL UNIQUE
+    code VARCHAR(10) NOT NULL PRIMARY KEY,
+    used TINYINT(1) NOT NULL DEFAULT 0
 );
 
 

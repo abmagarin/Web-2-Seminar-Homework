@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) {
             $_SESSION['username'] = htmlspecialchars($username);
+            $_SESSION['user_id'] = $user['id'];
             echo 'success';
         } else {
             echo 'Invalid credentials.';

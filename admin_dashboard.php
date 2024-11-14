@@ -36,7 +36,7 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
  $total_os = $total_os_result->fetch_row()[0];
  
  // Get total admins
- $total_admin_result = $conn->query($total_admin_query);
+ $total_admin_result = $conn->query($total_admin_query);  
  $total_admins = $total_admin_result->fetch_row()[0];
  
  // Get total visitors
@@ -115,6 +115,9 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
+                            <a class="nav-link active" href="#Dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" href="#sales">Sales</a>
                         </li>
                         <li class="nav-item">
@@ -138,7 +141,7 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
+                    <h1 id="Dashboard" class="h2">Dashboard</h1>
                 </div>
 
                 <div class="row">
@@ -354,17 +357,17 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                             <tr>
                                 <th>#</th>
                                 <th>Username</th>
-                                <th>Role</th>
+                                 
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $result = $conn->query("SELECT * FROM users WHERE role='visitor' OR role='registered_visitor'");
+                            $result = $conn->query("SELECT * FROM users");
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>
                                         <td>{$row['id']}</td>
                                         <td>{$row['username']}</td>
-                                        <td>{$row['role']}</td>
+                                         
                                       </tr>";
                             }
                             ?>

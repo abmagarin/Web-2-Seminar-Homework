@@ -6,8 +6,7 @@ id	name
 5	Microsoft Vista Home Premium
 6	Microsoft Vista Home Premium HU
 7	Microsoft Vista Home Premium HU notebook
-8	nincs
-9	Windows 7 Home Premium HU 32Bit
-10	Windows 7 Home Premium HU 64Bit
-11	Windows 7 Starter Edition HU
-12	Windows XP Home Magyar
+8	Windows 7 Home Premium HU 32Bit
+9	Windows 7 Home Premium HU 64Bit
+10	Windows 7 Starter Edition HU
+11	Windows XP Home Magyar
