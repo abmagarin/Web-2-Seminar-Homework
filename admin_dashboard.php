@@ -1,6 +1,7 @@
 <?php
 session_start();
-include 'data/db_connection.php';  // Adjust this path as per your structure
+include 'data/db_connection.php';
+require_once('admin_soap_service.php');
 
 // Check if the admin is logged in
 if (!isset($_SESSION['username']) || !$_SESSION['is_admin']) {
@@ -9,43 +10,22 @@ if (!isset($_SESSION['username']) || !$_SESSION['is_admin']) {
 }
 
 $admin_username = $_SESSION['username'];
+$adminService = new AdminSoapService($conn);
+try {
+    $dashboardData = $adminService->getAllDashboardData();
+    
+    // Extract data
+    $notebooks = $dashboardData['notebooks'];
+    $processors = $dashboardData['processors'];
+    $operatingSystems = $dashboardData['operatingSystems'];
+    $admins = $dashboardData['admins'];
+    $users = $dashboardData['users'];
+    $stats = $dashboardData['stats'];
+} catch (Exception $e) {
+    die("Error: " . $e->getMessage());
+}
+
 ?>
-
-<?php
- $total_sales_query = "SELECT COUNT(*) FROM notebook"; 
- $total_laptops_query = "SELECT COUNT(*) FROM notebook"; // Table name updated to 'notebook'
- $total_processors_query = "SELECT COUNT(*) FROM processor";
- $total_os_query = "SELECT COUNT(*) FROM opsystem";
- $total_admin_query = "SELECT COUNT(*) FROM admins ";
- $total_visitors_query = "SELECT COUNT(*) FROM users";
- 
- // Get total sales
-$total_sales_result = $conn->query($total_sales_query);
-$total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  // Default to 0 if no result
- 
- // Get total laptops
- $total_laptops_result = $conn->query($total_laptops_query);
- $total_laptops = $total_laptops_result->fetch_row()[0];
- 
- // Get total processors
- $total_processors_result = $conn->query($total_processors_query);
- $total_processors = $total_processors_result->fetch_row()[0];
- 
- // Get total operating systems
- $total_os_result = $conn->query($total_os_query);
- $total_os = $total_os_result->fetch_row()[0];
- 
- // Get total admins
- $total_admin_result = $conn->query($total_admin_query);  
- $total_admins = $total_admin_result->fetch_row()[0];
- 
- // Get total visitors
- $total_visitors_result = $conn->query($total_visitors_query);
- $total_visitors = $total_visitors_result->fetch_row()[0];
- 
-?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,12 +46,11 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
             color: #ffffff;
         }
         .sidebar {
-                position: sticky;
-                top: 0; /* Adjust this value as needed */
-                height: 100vh; /* Ensures it stays within the height of the viewport */
-                width: 250px; /* Adjust width as necessary */
-                 
-}
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 250px;
+        }
         .sidebar a:hover {
             background-color: #333333;
         }
@@ -84,9 +63,37 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
         .card-title {
             color: #ffffff;
         }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">Admin Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,16 +102,14 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Welcome, Dear Administrator <?php echo $admin_username; ?></a>
+                    <a class="nav-link" href="#">Welcome, <?php echo $admin_username; ?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary text-white" href="index.php">Back to Home</a>
                 </li>
-                 
                 <li class="nav-item">
                     <a class="nav-link btn btn-danger text-white" href="includes/logout.php">Logout</a>
                 </li>
-
             </ul>
         </div>
     </nav>
@@ -116,9 +121,6 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="#Dashboard">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#sales">Sales</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#laptops">Laptops</a>
@@ -145,95 +147,46 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                 </div>
 
                 <div class="row">
-    <div class="col-md-4">
-        <div class="card text-white bg-dark mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Total Sales</h5>
-                <p class="card-text">Number: <?php echo $total_sales; ?></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-dark mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Total Laptops</h5>
-                <p class="card-text">Number: <?php echo $total_laptops; ?></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-dark mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Total Processors</h5>
-                <p class="card-text">Number: <?php echo $total_processors; ?></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-dark mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Total Operating Systems</h5>
-                <p class="card-text">Number: <?php echo $total_os; ?></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-dark mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Total Admins</h5>
-                <p class="card-text">Number: <?php echo $total_admins; ?></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-dark mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Total Visitors</h5>
-                <p class="card-text">Number: <?php echo $total_visitors; ?></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-                <div class="table-responsive">
-                    <h2 id="sales">Sales</h2>
-                    <table class="table table-dark table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Manufacturer</th>
-                                <th>Type</th>
-                                <th>Display</th>
-                                <th>Memory</th>
-                                <th>Harddisk</th>
-                                <th>Videocontroller</th>
-                                <th>Price</th>
-                                <th>Processor ID</th>
-                                <th>Operating System ID</th>
-                                <th>Pieces</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $result = $conn->query("SELECT * FROM notebook");
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
-                                        <td>{$row['id']}</td>
-                                        <td>{$row['manufacturer']}</td>
-                                        <td>{$row['type']}</td>
-                                        <td>{$row['display']}</td>
-                                        <td>{$row['memory']}</td>
-                                        <td>{$row['harddisk']}</td>
-                                        <td>{$row['videocontroller']}</td>
-                                        <td>{$row['price']}</td>
-                                        <td>{$row['processorid']}</td>
-                                        <td>{$row['opsystemid']}</td>
-                                        <td>{$row['pieces']}</td>
-                                      </tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Notebooks</h5>
+                                <p class="card-text">Number: <?php echo $stats['total_notebooks']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Processors</h5>
+                                <p class="card-text">Number: <?php echo $stats['total_processors']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Operating Systems</h5>
+                                <p class="card-text">Number: <?php echo $stats['total_os']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Admins</h5>
+                                <p class="card-text">Number: <?php echo $stats['total_admins']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Users</h5>
+                                <p class="card-text">Number: <?php echo $stats['total_users']; ?></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="table-responsive">
@@ -255,24 +208,21 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $result = $conn->query("SELECT * FROM notebook");
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
-                                        <td>{$row['id']}</td>
-                                        <td>{$row['manufacturer']}</td>
-                                        <td>{$row['type']}</td>
-                                        <td>{$row['display']}</td>
-                                        <td>{$row['memory']}</td>
-                                        <td>{$row['harddisk']}</td>
-                                        <td>{$row['videocontroller']}</td>
-                                        <td>{$row['price']}</td>
-                                        <td>{$row['processorid']}</td>
-                                        <td>{$row['opsystemid']}</td>
-                                        <td>{$row['pieces']}</td>
-                                      </tr>";
-                            }
-                            ?>
+                            <?php foreach ($notebooks as $notebook): ?>
+                            <tr>
+                                <td><?php echo $notebook['id']; ?></td>
+                                <td><?php echo $notebook['manufacturer']; ?></td>
+                                <td><?php echo $notebook['type']; ?></td>
+                                <td><?php echo $notebook['display']; ?></td>
+                                <td><?php echo $notebook['memory']; ?></td>
+                                <td><?php echo $notebook['harddisk']; ?></td>
+                                <td><?php echo $notebook['videocontroller']; ?></td>
+                                <td><?php echo $notebook['price']; ?></td>
+                                <td><?php echo $notebook['processorid']; ?></td>
+                                <td><?php echo $notebook['opsystemid']; ?></td>
+                                <td><?php echo $notebook['pieces']; ?></td>
+                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -284,20 +234,17 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                             <tr>
                                 <th>#</th>
                                 <th>Manufacturer</th>
-                                <th>Model</th>
+                                <th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $result = $conn->query("SELECT * FROM processor");
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
-                                        <td>{$row['id']}</td>
-                                        <td>{$row['manufacturer']}</td>
-                                        <td>{$row['type']}</td>
-                                      </tr>";
-                            }
-                            ?>
+                            <?php foreach ($processors as $processor): ?>
+                            <tr>
+                                <td><?php echo $processor['id']; ?></td>
+                                <td><?php echo $processor['manufacturer']; ?></td>
+                                <td><?php echo $processor['type']; ?></td>
+                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -312,15 +259,12 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $result = $conn->query("SELECT * FROM opsystem");
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
-                                        <td>{$row['id']}</td>
-                                        <td>{$row['name']}</td>
-                                      </tr>";
-                            }
-                            ?>
+                            <?php foreach ($operatingSystems as $os): ?>
+                            <tr>
+                                <td><?php echo $os['id']; ?></td>
+                                <td><?php echo $os['name']; ?></td>
+                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -336,16 +280,13 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $result = $conn->query("SELECT * FROM admins");
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
-                                        <td>{$row['id']}</td>
-                                        <td>{$row['username']}</td>
-                                        <td>{$row['reference_code']}</td>
-                                      </tr>";
-                            }
-                            ?>
+                            <?php foreach ($admins as $admin): ?>
+                            <tr>
+                                <td><?php echo $admin['id']; ?></td>
+                                <td><?php echo $admin['username']; ?></td>
+                                <td><?php echo $admin['reference_code']; ?></td>
+                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -357,20 +298,15 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
                             <tr>
                                 <th>#</th>
                                 <th>Username</th>
-                                 
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $result = $conn->query("SELECT * FROM users");
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
-                                        <td>{$row['id']}</td>
-                                        <td>{$row['username']}</td>
-                                         
-                                      </tr>";
-                            }
-                            ?>
+                            <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td><?php echo $user['id']; ?></td>
+                                <td><?php echo $user['username']; ?></td>
+                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -381,5 +317,14 @@ $total_sales = $total_sales_result ? $total_sales_result->fetch_row()[0] : 0;  /
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        });
+
+        window.addEventListener('beforeunload', function() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        });
+    </script>
 </body>
 </html>

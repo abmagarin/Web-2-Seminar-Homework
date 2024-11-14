@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AdminService"
+    targetNamespace="http://localhost/Web-2-Seminar-Homework/"
+    xmlns:tns="http://localhost/Web-2-Seminar-Homework/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+    <types>
+        <xsd:schema targetNamespace="http://localhost/Web-2-Seminar-Homework/">
+            <xsd:complexType name="DashboardData">
+                <xsd:sequence>
+                    <xsd:element name="stats" type="tns:Stats"/>
+                    <xsd:element name="notebooks" type="tns:NotebookArray"/>
+                    <xsd:element name="processors" type="tns:ProcessorArray"/>
+                    <xsd:element name="operatingSystems" type="tns:OSArray"/>
+                    <xsd:element name="admins" type="tns:AdminArray"/>
+                    <xsd:element name="users" type="tns:UserArray"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            
+            <!-- Add other complex types for your data structures -->
+        </xsd:schema>
+    </types>
+
+    <message name="getAllDashboardDataRequest">
+    </message>
+    <message name="getAllDashboardDataResponse">
+        <part name="return" type="tns:DashboardData"/>
+    </message>
+
+    <!-- Add other messages for your operations -->
+
+    <portType name="AdminServicePort">
+        <operation name="getAllDashboardData">
+            <input message="tns:getAllDashboardDataRequest"/>
+            <output message="tns:getAllDashboardDataResponse"/>
+        </operation>
+        <!-- Add other operations -->
+    </portType>
+
+    <binding name="AdminServiceBinding" type="tns:AdminServicePort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getAllDashboardData">
+            <soap:operation soapAction="urn:getAllDashboardData"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <!-- Add other operation bindings -->
+    </binding>
+
+    <service name="AdminService">
+        <port name="AdminServicePort" binding="tns:AdminServiceBinding">
+            <soap:address location="http://localhost/Web-2-Seminar-Homework/admin_soap_service.php"/>
+        </port>
+    </service>
+
+</definitions>
