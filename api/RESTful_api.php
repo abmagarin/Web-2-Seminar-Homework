@@ -458,7 +458,5 @@ function deleteReferenceCode() {
     }
 }
 
-
-
-// Define the other DELETE methods here (deleteOpsystem, deleteProcessor, etc.)
+ 
 ?>

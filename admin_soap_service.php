@@ -55,21 +55,74 @@ class AdminSoapService {
 
         return true;
     }
-
-    public function editReferenceCode($id, $code) {
-        $query = "UPDATE reference_codes SET code = ? WHERE id = ?";
+    
+    public function editReferenceCode($oldCode, $newCode) {
+        // Ensure inputs are strings
+        $oldCode = (string)$oldCode;
+        $newCode = (string)$newCode;
+    
+        if (empty($oldCode) || empty($newCode)) {
+            throw new Exception("Old and new codes are required");
+        }
+    
+        // Check if the old code exists (using string comparison)
+        $checkQuery = "SELECT * FROM reference_codes WHERE code = ?";
+        $checkStmt = $this->conn->prepare($checkQuery);
+        $checkStmt->bind_param("s", $oldCode);
+        $checkStmt->execute();
+        $existingCode = $checkStmt->get_result()->fetch_assoc();
+    
+        if (!$existingCode) {
+            throw new Exception("Original reference code does not exist");
+        }
+    
+        // Check if the new code already exists
+        $newCheckQuery = "SELECT * FROM reference_codes WHERE code = ?";
+        $newCheckStmt = $this->conn->prepare($newCheckQuery);
+        $newCheckStmt->bind_param("s", $newCode);
+        $newCheckStmt->execute();
+        $newExistingCode = $newCheckStmt->get_result()->fetch_assoc();
+    
+        if ($newExistingCode) {
+            throw new Exception("New reference code already exists");
+        }
+    
+        // Update the code
+        $query = "UPDATE reference_codes SET code = ? WHERE code = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("si", $code, $id);
-        return $stmt->execute();
+        $stmt->bind_param("ss", $newCode, $oldCode);
+        $result = $stmt->execute();
+    
+        return $result;
     }
-
-    public function deleteReferenceCode($id) {
-        $query = "DELETE FROM reference_codes WHERE id = ?";
+    
+    public function deleteReferenceCode($code) {
+        // Ensure input is a string
+        $code = (string)$code;
+    
+        if (empty($code)) {
+            throw new Exception("Code is required");
+        }
+    
+        // Check if the code exists before deleting
+        $checkQuery = "SELECT * FROM reference_codes WHERE code = ?";
+        $checkStmt = $this->conn->prepare($checkQuery);
+        $checkStmt->bind_param("s", $code);
+        $checkStmt->execute();
+        $existingCode = $checkStmt->get_result()->fetch_assoc();
+    
+        if (!$existingCode) {
+            throw new Exception("Reference code does not exist");
+        }
+    
+        // Delete the code
+        $query = "DELETE FROM reference_codes WHERE code = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
-        return $stmt->execute();
+        $stmt->bind_param("s", $code);
+        $result = $stmt->execute();
+    
+        return $result;
     }
-
     // Notebook Methods
     public function addNotebook($data) {
         $query = "INSERT INTO notebook (manufacturer, type, display, memory, harddisk, videocontroller, price, processorid, opsystemid, pieces)

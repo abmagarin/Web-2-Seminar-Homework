@@ -354,7 +354,7 @@ try {
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
@@ -367,135 +367,212 @@ try {
         });
     </script>
     <script>
-$(document).ready(function() {
-    // Add new reference code
+    $(document).ready(function() {
+    // Reference Code Actions
     $('#add-reference-code').click(function() {
         const code = prompt('Enter new reference code:');
         if (code) {
             $.ajax({
                 url: 'admin_ajax_handler.php',
                 method: 'POST',
+                dataType: 'json',
                 contentType: 'application/json',
                 data: JSON.stringify({
                     action: 'add_reference_code',
                     code: code
                 }),
                 success: function(response) {
+                    console.log(response); // Debug log
                     if (response.success) {
                         alert(response.message);
-                        location.reload(); // Reload to show new reference code
+                        location.reload();
                     } else {
                         alert('Error: ' + response.message);
                     }
                 },
                 error: function(xhr, status, error) {
+                    console.error(xhr.responseText); // Log detailed error
                     alert('An error occurred: ' + error);
                 }
             });
         }
     });
-
-    // Edit reference code
-    $('.edit-reference-code').click(function() {
-        const id = $(this).data('id');
-        const newCode = prompt('Enter new code:');
-        if (newCode) {
-            $.ajax({
-                url: 'admin_ajax_handler.php',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ action: 'edit_reference_code', id: id, code: newCode }),
-                success: function(response) {
-                    if (response.success) {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        alert('Error: ' + response.message);
-                    }
-                }
-            });
-        }
-    });
-
-    // Delete reference code
-    $('.delete-reference-code').click(function() {
-        const id = $(this).data('id');
-        if (confirm('Are you sure you want to delete this reference code?')) {
-            $.ajax({
-                url: 'admin_ajax_handler.php',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ action: 'delete_reference_code', id: id }),
-                success: function(response) {
-                    if (response.success) {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        alert('Error: ' + response.message);
-                    }
-                }
-            });
-        }
-    });
-
-    // Add new notebook
-    $('#add-notebook').click(function() {
-        const manufacturer = prompt('Enter Manufacturer:');
-        const type = prompt('Enter Type:');
-        const display = prompt('Enter Display:');
-        const memory = prompt('Enter Memory:');
-        const harddisk = prompt('Enter Harddisk:');
-        const videocontroller = prompt('Enter Video Controller:');
-        const price = prompt('Enter Price:');
-        const processorid = prompt('Enter Processor ID:');
-        const opsystemid = prompt('Enter Operating System ID:');
-        const pieces = prompt('Enter Pieces:');
-
-        const notebookData = {
-            manufacturer,
-            type,
-            display,
-            memory,
-            harddisk,
-            videocontroller,
-            price: parseFloat(price),
-            processorid: parseInt(processorid),
-            opsystemid: parseInt(opsystemid),
-            pieces: parseInt(pieces)
-        };
-
+// Edit Reference Code
+$('.edit-reference-code').click(function() {
+    const currentCode = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+    const newCode = prompt('Edit reference code:', currentCode);
+    
+    if (newCode && newCode.trim() !== currentCode) {
         $.ajax({
             url: 'admin_ajax_handler.php',
             method: 'POST',
+            dataType: 'json',
             contentType: 'application/json',
-            data: JSON.stringify({ action: 'add_notebook', data: notebookData }),
+            data: JSON.stringify({
+                action: 'edit_reference_code', 
+                oldCode: currentCode,  // Send the current code
+                newCode: newCode.trim()  // Send the new code, trimmed
+            }),
             success: function(response) {
+                console.log(response); // Debug log
                 if (response.success) {
                     alert(response.message);
                     location.reload();
                 } else {
                     alert('Error: ' + response.message);
                 }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Log detailed error
+                alert('An error occurred: ' + error);
+            }
+        });
+    }
+});
+
+// Delete Reference Code
+$('.delete-reference-code').click(function() {
+    const codeToDelete = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+    if (confirm('Are you sure you want to delete this reference code?')) {
+        $.ajax({
+            url: 'admin_ajax_handler.php',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                action: 'delete_reference_code', 
+                code: codeToDelete  // Send the code to delete
+            }),
+            success: function(response) {
+                console.log(response); // Debug log
+                if (response.success) {
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Log detailed error
+                alert('An error occurred: ' + error);
+            }
+        });
+    }
+});
+
+    // Notebook Actions
+    $('#add-notebook').click(function() {
+        const notebookData = {
+            manufacturer: prompt('Manufacturer:'),
+            type: prompt('Type:'),
+            display: parseFloat(prompt('Display Size:')),
+            memory: parseInt(prompt('Memory (GB):')),
+            harddisk: parseInt(prompt('Hard Disk (GB):')),
+            videocontroller: prompt('Video Controller:'),
+            price: parseFloat(prompt('Price:')),
+            processorid: parseInt(prompt('Processor ID:')),
+            opsystemid: parseInt(prompt('Operating System ID:')),
+            pieces: parseInt(prompt('Number of Pieces:'))
+        };
+
+        $.ajax({
+            url: 'admin_ajax_handler.php',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                action: 'add_notebook', 
+                data: notebookData
+            }),
+            success: function(response) {
+                console.log(response); // Debug log
+                if (response.success) {
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Log detailed error
+                alert('An error occurred: ' + error);
             }
         });
     });
 
-    // Pagination logic can be integrated similarly by fetching a page at a time.
-    function loadNotebooks(page = 1) {
+    // Edit Notebook
+    $('.edit-notebook').click(function() {
+        const id = $(this).data('id');
+        const $row = $(this).closest('tr');
+        
+        const notebookData = {
+            manufacturer: prompt('Manufacturer:', $row.find('td:nth-child(2)').text()),
+            type: prompt('Type:', $row.find('td:nth-child(3)').text()),
+            display: parseFloat(prompt('Display Size:', $row.find('td:nth-child(4)').text())),
+            memory: parseInt(prompt('Memory (GB):', $row.find('td:nth-child(5)').text())),
+            harddisk: parseInt(prompt('Hard Disk (GB):', $row.find('td:nth-child(6)').text())),
+            videocontroller: prompt('Video Controller:', $row.find('td:nth-child(7)').text()),
+            price: parseFloat(prompt('Price:', $row.find('td:nth-child(8)').text())),
+            processorid: parseInt(prompt('Processor ID:', $row.find('td:nth-child(9)').text())),
+            opsystemid: parseInt(prompt('Operating System ID:', $row.find('td:nth-child(10)').text())),
+            pieces: parseInt(prompt('Number of Pieces:', $row.find('td:nth-child(11)').text()))
+        };
+
         $.ajax({
             url: 'admin_ajax_handler.php',
             method: 'POST',
+            dataType: 'json',
             contentType: 'application/json',
-            data: JSON.stringify({ action: 'load_notebooks', page: page }),
+            data: JSON.stringify({
+                action: 'edit_notebook', 
+                id: id,
+                data: notebookData
+            }),
             success: function(response) {
-                $('#notebooks-body').html(response.html);
-                $('#notebooks-pagination').html(response.pagination);
+                console.log(response); // Debug log
+                if (response.success) {
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Log detailed error
+                alert('An error occurred: ' + error);
             }
         });
-    }
+    });
 
-    // Initial load of notebooks
-    loadNotebooks();
+    // Delete Notebook
+    $('.delete-notebook').click(function() {
+        const id = $(this).data('id');
+        if (confirm('Are you sure you want to delete this notebook?')) {
+            $.ajax({
+                url: 'admin_ajax_handler.php',
+                method: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    action: 'delete_notebook', 
+                    id: id
+                }),
+                success: function(response) {
+                    console.log(response); // Debug log
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText); // Log detailed error
+                    alert('An error occurred: ' + error);
+                }
+            });
+        }
+    });
 });
 </script>
 
