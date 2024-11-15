@@ -18,25 +18,87 @@
                     <xsd:element name="users" type="tns:UserArray"/>
                 </xsd:sequence>
             </xsd:complexType>
-            
+
             <!-- Add other complex types for your data structures -->
         </xsd:schema>
     </types>
 
-    <message name="getAllDashboardDataRequest">
-    </message>
+    <message name="getAllDashboardDataRequest"/>
     <message name="getAllDashboardDataResponse">
         <part name="return" type="tns:DashboardData"/>
     </message>
 
-    <!-- Add other messages for your operations -->
+    <!-- Reference Code Messages -->
+    <message name="addReferenceCodeRequest">
+        <part name="code" type="xsd:string"/>
+    </message>
+    <message name="addReferenceCodeResponse">
+        <part name="success" type="xsd:boolean"/>
+    </message>
+    <message name="editReferenceCodeRequest">
+        <part name="id" type="xsd:int"/>
+        <part name="newCode" type="xsd:string"/>
+    </message>
+    <message name="editReferenceCodeResponse">
+        <part name="success" type="xsd:boolean"/>
+    </message>
+    <message name="deleteReferenceCodeRequest">
+        <part name="id" type="xsd:int"/>
+    </message>
+    <message name="deleteReferenceCodeResponse">
+        <part name="success" type="xsd:boolean"/>
+    </message>
+
+    <!-- Notebook Messages -->
+    <message name="addNotebookRequest">
+        <part name="data" type="tns:NotebookData"/>
+    </message>
+    <message name="addNotebookResponse">
+        <part name="success" type="xsd:boolean"/>
+    </message>
+    <message name="editNotebookRequest">
+        <part name="id" type="xsd:int"/>
+        <part name="data" type="tns:NotebookData"/>
+    </message>
+    <message name="editNotebookResponse">
+        <part name="success" type="xsd:boolean"/>
+    </message>
+    <message name="deleteNotebookRequest">
+        <part name="id" type="xsd:int"/>
+    </message>
+    <message name="deleteNotebookResponse">
+        <part name="success" type="xsd:boolean"/>
+    </message>
 
     <portType name="AdminServicePort">
         <operation name="getAllDashboardData">
             <input message="tns:getAllDashboardDataRequest"/>
             <output message="tns:getAllDashboardDataResponse"/>
         </operation>
-        <!-- Add other operations -->
+        <operation name="addReferenceCode">
+            <input message="tns:addReferenceCodeRequest"/>
+            <output message="tns:addReferenceCodeResponse"/>
+        </operation>
+        <operation name="editReferenceCode">
+            <input message="tns:editReferenceCodeRequest"/>
+            <output message="tns:editReferenceCodeResponse"/>
+        </operation>
+        <operation name="deleteReferenceCode">
+            <input message="tns:deleteReferenceCodeRequest"/>
+            <output message="tns:deleteReferenceCodeResponse"/>
+        </operation>
+        <operation name="addNotebook">
+            <input message="tns:addNotebookRequest"/>
+            <output message="tns:addNotebookResponse"/>
+        </operation>
+        <operation name="editNotebook">
+            <input message="tns:editNotebookRequest"/>
+            <output message="tns:editNotebookResponse"/>
+        </operation>
+        <operation name="deleteNotebook">
+            <input message="tns:deleteNotebookRequest"/>
+            <output message="tns:deleteNotebookResponse"/>
+        </operation>
     </portType>
 
     <binding name="AdminServiceBinding" type="tns:AdminServicePort">
@@ -52,7 +114,72 @@
                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
-        <!-- Add other operation bindings -->
+        <operation name="addReferenceCode">
+            <soap:operation soapAction="urn:addReferenceCode"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="editReferenceCode">
+            <soap:operation soapAction="urn:editReferenceCode"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="deleteReferenceCode">
+            <soap:operation soapAction="urn:deleteReferenceCode"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="addNotebook">
+            <soap:operation soapAction="urn:addNotebook"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="editNotebook">
+            <soap:operation soapAction="urn:editNotebook"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="deleteNotebook">
+            <soap:operation soapAction="urn:deleteNotebook"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:AdminService"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
     </binding>
 
     <service name="AdminService">

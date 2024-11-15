@@ -11,9 +11,10 @@ if (!isset($_SESSION['username']) || !$_SESSION['is_admin']) {
 
 $admin_username = $_SESSION['username'];
 $adminService = new AdminSoapService($conn);
+
 try {
     $dashboardData = $adminService->getAllDashboardData();
-    
+
     // Extract data
     $notebooks = $dashboardData['notebooks'];
     $processors = $dashboardData['processors'];
@@ -24,7 +25,6 @@ try {
 } catch (Exception $e) {
     die("Error: " . $e->getMessage());
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -137,6 +137,9 @@ try {
                         <li class="nav-item">
                             <a class="nav-link" href="#visitors">Visitors</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#reference_codes">Reference codes</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -189,8 +192,10 @@ try {
                     </div>
                 </div>
 
+                <!-- Laptops Table -->
                 <div class="table-responsive">
                     <h2 id="laptops">Laptops</h2>
+                    <button class="btn btn-success mb-3" id="add-notebook">Add New Notebook</button>
                     <table class="table table-dark table-striped table-sm">
                         <thead>
                             <tr>
@@ -205,9 +210,10 @@ try {
                                 <th>Processor ID</th>
                                 <th>Operating System ID</th>
                                 <th>Pieces</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="notebooks-body">
                             <?php foreach ($notebooks as $notebook): ?>
                             <tr>
                                 <td><?php echo $notebook['id']; ?></td>
@@ -221,10 +227,15 @@ try {
                                 <td><?php echo $notebook['processorid']; ?></td>
                                 <td><?php echo $notebook['opsystemid']; ?></td>
                                 <td><?php echo $notebook['pieces']; ?></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary edit-notebook" data-id="<?php echo $notebook['id']; ?>">Edit</button>
+                                    <button class="btn btn-sm btn-danger delete-notebook" data-id="<?php echo $notebook['id']; ?>">Delete</button>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <div id="notebooks-pagination"></div>
                 </div>
 
                 <div class="table-responsive">
@@ -291,6 +302,35 @@ try {
                     </table>
                 </div>
 
+                <!-- Reference Codes Table -->
+                <div class="table-responsive">
+                    <h2 id="reference_codes">Reference Codes</h2>
+                    <button class="btn btn-success mb-3" id="add-reference-code">Add New Reference Code</button>
+                    <table class="table table-dark table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Code</th>
+                                <th>Used</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reference-codes-body">
+                            <?php foreach ($dashboardData['referenceCodes'] as $code): ?>
+                            <tr>
+                                <td><?php echo $code['id']; ?></td>
+                                <td><?php echo $code['code']; ?></td>
+                                <td><?php echo $code['used'] ? 'Yes' : 'No'; ?></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary edit-reference-code" data-id="<?php echo $code['id']; ?>">Edit</button>
+                                    <button class="btn btn-sm btn-danger delete-reference-code" data-id="<?php echo $code['id']; ?>">Delete</button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="table-responsive">
                     <h2 id="visitors">Visitors</h2>
                     <table class="table table-dark table-striped table-sm">
@@ -326,5 +366,138 @@ try {
             document.getElementById('loadingOverlay').style.display = 'flex';
         });
     </script>
+    <script>
+$(document).ready(function() {
+    // Add new reference code
+    $('#add-reference-code').click(function() {
+        const code = prompt('Enter new reference code:');
+        if (code) {
+            $.ajax({
+                url: 'admin_ajax_handler.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    action: 'add_reference_code',
+                    code: code
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload(); // Reload to show new reference code
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred: ' + error);
+                }
+            });
+        }
+    });
+
+    // Edit reference code
+    $('.edit-reference-code').click(function() {
+        const id = $(this).data('id');
+        const newCode = prompt('Enter new code:');
+        if (newCode) {
+            $.ajax({
+                url: 'admin_ajax_handler.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ action: 'edit_reference_code', id: id, code: newCode }),
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                }
+            });
+        }
+    });
+
+    // Delete reference code
+    $('.delete-reference-code').click(function() {
+        const id = $(this).data('id');
+        if (confirm('Are you sure you want to delete this reference code?')) {
+            $.ajax({
+                url: 'admin_ajax_handler.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ action: 'delete_reference_code', id: id }),
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                }
+            });
+        }
+    });
+
+    // Add new notebook
+    $('#add-notebook').click(function() {
+        const manufacturer = prompt('Enter Manufacturer:');
+        const type = prompt('Enter Type:');
+        const display = prompt('Enter Display:');
+        const memory = prompt('Enter Memory:');
+        const harddisk = prompt('Enter Harddisk:');
+        const videocontroller = prompt('Enter Video Controller:');
+        const price = prompt('Enter Price:');
+        const processorid = prompt('Enter Processor ID:');
+        const opsystemid = prompt('Enter Operating System ID:');
+        const pieces = prompt('Enter Pieces:');
+
+        const notebookData = {
+            manufacturer,
+            type,
+            display,
+            memory,
+            harddisk,
+            videocontroller,
+            price: parseFloat(price),
+            processorid: parseInt(processorid),
+            opsystemid: parseInt(opsystemid),
+            pieces: parseInt(pieces)
+        };
+
+        $.ajax({
+            url: 'admin_ajax_handler.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ action: 'add_notebook', data: notebookData }),
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            }
+        });
+    });
+
+    // Pagination logic can be integrated similarly by fetching a page at a time.
+    function loadNotebooks(page = 1) {
+        $.ajax({
+            url: 'admin_ajax_handler.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ action: 'load_notebooks', page: page }),
+            success: function(response) {
+                $('#notebooks-body').html(response.html);
+                $('#notebooks-pagination').html(response.pagination);
+            }
+        });
+    }
+
+    // Initial load of notebooks
+    loadNotebooks();
+});
+</script>
+
 </body>
 </html>
