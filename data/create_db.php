@@ -94,6 +94,18 @@ INSERT INTO reference_codes (code, used) VALUES
 ('code9', 0),
 ('code10', 0);
 
+CREATE TABLE exchange_rates (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    date DATE NOT NULL,
+    source_currency VARCHAR(3) NOT NULL,
+    target_currency VARCHAR(3) NOT NULL,
+    rate DECIMAL(20, 6) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_exchange_rate (date, source_currency, target_currency)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
 ";
 
 // Execute the query and check for errors

@@ -388,7 +388,7 @@ if (isset($_SESSION['username'])) {
                   <a class="nav-link" href="#">Blog</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Contact</a>
+                  <a class="nav-link" href="exchange_rates/exchange_rates.php">Currency Rates</a>
                 </li>
                 <li class="nav-item dropdown">
                 <?php if (isset($_SESSION['username'])): ?>
@@ -1359,7 +1359,7 @@ if (isset($_SESSION['username'])) {
                 <a href="styles.html" class="item-anchor">Single item</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor">Contact</a>
+                <a href="/exchange_rates/exchange_rates.php" class="item-anchor">Currency rate</a>
               </li>
             </ul>
           </div>
