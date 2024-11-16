@@ -1,3 +1,4 @@
+//just for Test
 <?php
 // Initialize the SOAP client
 $client = new SoapClient('http://localhost/Web-2-Seminar-Homework/admin_service.wsdl');

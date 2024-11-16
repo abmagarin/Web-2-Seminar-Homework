@@ -56,7 +56,7 @@
         <div class="mt-4 p-4 bg-light rounded shadow-sm border border-success">
     <h4 class="mb-3 text-dark">Total: <span id="totalPrice" class="price text-success">0</span> HUF</h4>
     <button id="generateInvoice" class="btn btn-success btn-lg" disabled>
-        <i class="fas fa-file-invoice mr-2"></i>       Generate Invoice
+        <i class="fas fa-file-invoice mr-2"></i>       Go to paying and Generate Invoice
     </button>
 </div>
     </div>
@@ -129,7 +129,7 @@
                     <div class="empty-basket">
                         <h4>Your basket is empty</h4>
                         <p>Go back to the shop and add some items!</p>
-                        <a href="index.php" class="btn btn-primary">Continue Shopping</a>
+                        <a href="shop.php" class="btn btn-primary">Continue Shopping</a>
                     </div>
                 `;
                 $('#generateInvoice').prop('disabled', true);
@@ -207,7 +207,7 @@
 
         // Handle invoice generation
         $('#generateInvoice').click(function() {
-            window.location.href = 'generate_invoice.php';
+            window.location.href = 'payment_form.php';
         });
     </script>
     

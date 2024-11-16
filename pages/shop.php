@@ -157,7 +157,9 @@ $notebooksOnPage = array_slice($notebooks, $offset, $itemsPerPage);
             <a href="../index.php" class="btn btn-outline-primary mr-2">
                 <i class="fas fa-home mr-1"></i>Home
             </a>
-             
+            <a href="basket_page.php" class="btn btn-success">
+                <i class="fas fa-shopping-cart mr-1"></i>Basket
+            </a>
         </div>
     </div>
 </nav>
