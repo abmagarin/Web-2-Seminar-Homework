@@ -12,6 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 require_once '../data/db_connection.php';
+include '../data/db_connection.php';
 
 try {
     $method = $_SERVER['REQUEST_METHOD'];
