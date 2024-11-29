@@ -676,7 +676,7 @@ if (isset($_SESSION['username'])) {
       </div>
     </div>
   </section>
-
+<!--
   <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
     <div class="container">
       <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
@@ -796,7 +796,7 @@ if (isset($_SESSION['username'])) {
         </svg></div>
     </div>
   </section>
-
+-->
   <section class="collection bg-light position-relative py-5">
     <div class="container">
       <div class="row">
@@ -818,7 +818,7 @@ if (isset($_SESSION['username'])) {
       </div>
     </div>
   </section>
-
+<!--
   <section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
     <div class="container">
       <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
@@ -978,7 +978,7 @@ if (isset($_SESSION['username'])) {
       </div>
     </div>
   </section>
-
+-->
   <section class="testimonials py-5 bg-light">
     <div class="section-header text-center mt-5">
       <h3 class="section-title">WE LOVE GOOD COMPLIMENT</h3>
@@ -1021,7 +1021,7 @@ if (isset($_SESSION['username'])) {
     </div>
     <div class="testimonial-swiper-pagination d-flex justify-content-center mb-5"></div>
   </section>
-
+<!--
   <section id="related-products" class="related-products product-carousel py-5 position-relative overflow-hidden">
     <div class="container">
       <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
@@ -1141,7 +1141,7 @@ if (isset($_SESSION['username'])) {
         </svg></div>
     </div>
   </section>
-
+-->
   <section class="blog py-5">
     <div class="container">
       <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
@@ -1153,7 +1153,7 @@ if (isset($_SESSION['username'])) {
           <article class="post-item">
             <div class="post-image">
               <a href="index.php">
-                <img src="images/post-image1.jpg" alt="image" class="post-grid-image img-fluid">
+                <img src="images/post-image1.jpg" alt="image" class="yevhenii post-grid-image img-fluid">
               </a>
             </div>
             <div class="post-content d-flex flex-wrap gap-2 my-3">
@@ -1162,7 +1162,7 @@ if (isset($_SESSION['username'])) {
                 <span class="meta-day"> jul 11, 2022</span>
               </div>
               <h5 class="post-title text-uppercase">
-                <a href="index.php">How to look outstanding in pastel</a>
+                <a href="index.php">Gaming in our nowadays world</a>
               </h5>
               <p>Dignissim lacus,turpis ut suspendisse vel tellus.Turpis purus,gravida orci,fringilla...</p>
             </div>
@@ -1172,7 +1172,7 @@ if (isset($_SESSION['username'])) {
           <article class="post-item">
             <div class="post-image">
               <a href="index.php">
-                <img src="images/post-image2.jpg" alt="image" class="post-grid-image img-fluid">
+                <img src="images/post-image2.jpg" alt="image" class="yevhenii post-grid-image img-fluid">
               </a>
             </div>
             <div class="post-content d-flex flex-wrap gap-2 my-3">
@@ -1181,7 +1181,7 @@ if (isset($_SESSION['username'])) {
                 <span class="meta-day"> jul 11, 2022</span>
               </div>
               <h5 class="post-title text-uppercase">
-                <a href="index.php">Top 10 fashion trend for summer</a>
+                <a href="index.php">Future of virtual reality gaming</a>
               </h5>
               <p>Turpis purus, gravida orci, fringilla dignissim lacus, turpis ut suspendisse vel tellus...</p>
             </div>
@@ -1191,7 +1191,7 @@ if (isset($_SESSION['username'])) {
           <article class="post-item">
             <div class="post-image">
               <a href="index.php">
-                <img src="images/post-image3.jpg" alt="image" class="post-grid-image img-fluid">
+                <img src="images/post-image3.jpg" alt="image" class="yevhenii post-grid-image img-fluid">
               </a>
             </div>
             <div class="post-content d-flex flex-wrap gap-2 my-3">
@@ -1200,7 +1200,7 @@ if (isset($_SESSION['username'])) {
                 <span class="meta-day"> jul 11, 2022</span>
               </div>
               <h5 class="post-title text-uppercase">
-                <a href="index.php">Crazy fashion with unique moment</a>
+                <a href="index.php">Retrospective on computer advancements</a>
               </h5>
               <p>Turpis purus, gravida orci, fringilla dignissim lacus, turpis ut suspendisse vel tellus...</p>
             </div>
@@ -1209,7 +1209,7 @@ if (isset($_SESSION['username'])) {
       </div>
     </div>
   </section>
-
+<!--
   <section class="logo-bar py-5 my-5">
     <div class="container">
       <div class="row">
@@ -1223,7 +1223,7 @@ if (isset($_SESSION['username'])) {
       </div>
     </div>
   </section>
-
+-->
   <section class="newsletter bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
     <div class="container">
       <div class="row justify-content-center">
@@ -1239,7 +1239,7 @@ if (isset($_SESSION['username'])) {
       </div>
     </div>
   </section>
-
+<!--
   <section class="instagram position-relative">
     <div class="d-flex justify-content-center w-100 position-absolute bottom-0 z-1">
       <a href="https://www.instagram.com/templatesjungle/" class="btn btn-dark px-5">Follow us on Instagram</a>
@@ -1289,7 +1289,7 @@ if (isset($_SESSION['username'])) {
       </div>
     </div>
   </section>
-
+-->
   <footer id="footer" class="mt-5">
     <div class="container">
       <div class="row d-flex flex-wrap justify-content-between py-5">
