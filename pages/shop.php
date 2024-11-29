@@ -1,11 +1,10 @@
 <?php
-session_start();
 require_once '../data/db_connection.php'; //  
- 
+session_start();
 // Fetch notebooks from the database
 try {
-    $dbh = new PDO('mysql:host=localhost;dbname=laptop', 'root', '',
-                   array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    $dbh = new PDO('mysql:host=sql206.infinityfree.com;dbname=if0_37815839_laptop', 'if0_37815839', 'hx0ZG8OMMbAf',
+                  array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
     $stmt = $dbh->prepare("SELECT * FROM notebook");
     $stmt->execute();
