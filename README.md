@@ -3,6 +3,8 @@
 ## 🚀 Project Overview
 **Technologies:** PHP, MySQL, Bootstrap
 
+**Live Demo**: Notebook Sales Management System
+
 ## 📋 Table of Contents
 - 🌟 Features
 - 🚀 Installation
