@@ -1608,3 +1608,8 @@ a.btn-link.text-light:after {
   background-size: cover;
   transition: transform .3s ease-out;
 }
+
+.yevhenii {
+    height: 250px;
+    width: 400px;
+}
