@@ -1,16 +1,16 @@
 <?php
+include '../data/db_connection.php';
+
 class DatabaseConfig {
-    private static $host = 'localhost';
-    private static $dbname = 'Laptop';
-    private static $username = 'root';
-    private static $password = '';
 
     public static function getConnection() {
+        global $servername, $dbname, $username, $password;
+        
         try {
             $conn = new PDO(
-                "mysql:host=" . self::$host . ";dbname=" . self::$dbname, 
-                self::$username, 
-                self::$password
+                "mysql:host=" . $servername . ";dbname=" . $dbname, 
+                $username, 
+                $password
             );
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
