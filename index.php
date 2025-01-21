@@ -4,6 +4,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
+<link id="favicon" rel="icon" href="logo.png" type="image/x-icon">
   <title>Find Your Perfect Laptop Solution</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
