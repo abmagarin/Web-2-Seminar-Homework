@@ -1,8 +1,10 @@
 // This is Task 6.Restful server menu: Create a Restful web service for your database to one of its boards. Implement GET, POST, PUT, DELETE functions.Test your web service with cURL and Postman. Describe the testing steps in the documentation.
 //Testing with Postman with all methods went successfully.
 <?php
+include '../data/db_connection.php';
+
 try {
-    $dbh = new PDO('mysql:host=localhost;dbname=laptop', 'root', '',
+    $dbh = new PDO('mysql:host=' . $servername . ';dbname=' . $dbname, $username, $password,
                    array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     $dbh->exec('SET NAMES utf8 COLLATE utf8_general_ci');
 } catch (PDOException $e) {

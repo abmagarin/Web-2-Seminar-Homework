@@ -1,6 +1,7 @@
 <?php
-session_start();
 require_once '../data/db_connection.php'; 
+include '../data/db_connection.php';
+session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {
@@ -14,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quantity = $_POST['quantity'] ?? 1;
 
     try {
-        $dbh = new PDO('mysql:host=localhost;dbname=laptop', 'root', '',
-                       array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $dbh = new PDO('mysql:host=' . $servername . ';dbname=' . $dbname, $username, $password,
+               array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         
         // Check if the notebook exists and is in stock
         $stmt = $dbh->prepare("SELECT pieces FROM notebook WHERE id = ?");
